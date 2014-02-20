@@ -1,9 +1,12 @@
 class EpmSubdomain
-  def initialize
+  def self.matches?(request)
     @domains = Organisation.retrieve_domains
-  end
-
-  def matches?(request)
     @domains.map{|v| [v,"www.#{v}"]}.flatten.include? request.subdomain
+  end
+end
+
+class Domain
+  def self.matches?(request)
+    !request.subdomain.present? || request.subdomain == "www"
   end
 end

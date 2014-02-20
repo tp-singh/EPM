@@ -1,10 +1,15 @@
 EPM::Application.routes.draw do
-  root 'home#index'
-
-  devise_for :organisations
+require 'epm_subdomain'
 
   constraints(EpmSubdomain) do
+    get '/', :to => 'home#login'
     devise_for :users
-   # root 'home#login'
   end
+
+  constraints(Domain) do
+    get '/', :to => 'home#index'
+    devise_for :organisations
+  end
+  
+
 end
