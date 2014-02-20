@@ -3,4 +3,8 @@ class Organisation < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+
+  def self.retrieve_domains
+    all.map(&:domain)
+  end
 end
